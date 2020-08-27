@@ -1,27 +1,21 @@
-# LegalbotLoginFrontendCgv
+# Legalbot Login challenge to apply for the position of full-stack developer
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.7.
+## Front-end
 
-## Development server
+**Author:** Camilo Gálvez Vidal
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+This aplication contains a simple Sign in and Sign up page.
 
-## Code scaffolding
+**Mandatory Requirements**
+To execute the front-end is necessary to have running the back-end of this same app, in the port `3030`.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+**Running instructions**
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  - First, download and run the [Legalbot login challenge backend](https://github.com/cgalvezv/legalbot-login-backend-cgv), to run you need follow the [README.md](https://github.com/cgalvezv/legalbot-login-backend-cgv/blob/master/README.md)
+  - Then, download this repository
+  - Do `cd legalbot-login-frontend-cgv`
+  - Execute the front-end with `ng serve --port=4200`
+  - Access the following URL `https://localhost:4200`
+  
+  >Any dubt, writme a email to `camilogalvezv@gmail.com`
+  
