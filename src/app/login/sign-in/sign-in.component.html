@@ -8,14 +8,14 @@
     <mat-card-content>
       <form [formGroup]="signInForm" fxLayout="column" fxLayoutGap="20px">
         <mat-form-field fxFlex appearance="outline">
-          <mat-label>email</mat-label>
+          <mat-label>Email</mat-label>
           <input matInput formControlName='email'>
           <mat-error *ngIf="signInForm.get('email').invalid">
             Invalid format
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex appearance="outline">
-          <mat-label>password</mat-label>
+          <mat-label>Password</mat-label>
           <input matInput formControlName='password' [type]="hide_pass ? 'password' : 'text'">
           <button mat-icon-button matSuffix (click)="hide_pass = !hide_pass" [attr.aria-pressed]="hide_pass">
             <mat-icon>{{hide_pass ? 'visibility_off' : 'visibility'}}</mat-icon>
