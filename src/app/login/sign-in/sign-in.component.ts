@@ -1,8 +1,9 @@
 import { Component, OnInit, OnChanges } from '@angular/core';
 import { Validators, FormGroup, FormControl } from '@angular/forms';
+import { Router } from '@angular/router';
+import { delay } from 'rxjs/internal/operators';
 import { AuthService } from '../../shared/auth/auth.service';
 import { UserOutput } from 'src/app/shared/models/user.model';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-in',
@@ -13,6 +14,7 @@ export class SignInComponent implements OnInit {
 
   hide_pass = true; // To hide/show password behavior
   show_signin_error_card = false; // To hide/show sign in error
+  loading = false; // To hide/show loading bar
   // Sign In form declaration
   signInForm = new FormGroup({
     email: new FormControl('', Validators.email), // Email validation
@@ -30,9 +32,14 @@ export class SignInComponent implements OnInit {
   }
 
   submit() {
+    this.loading = true;
     this._authSrv.signIn(this.signInForm.value)
+      .pipe(
+        delay(1000)
+      )
       .subscribe((user: UserOutput) => {
         if (user) {
+          this.loading = false;
           this._authSrv.setAuthToken(btoa(JSON.stringify(user)), user.accessToken, user.refreshToken);
           this._authSrv.setUserLogged(user);
           this._router.navigate(['home'])
@@ -40,6 +47,7 @@ export class SignInComponent implements OnInit {
       },
       err => {
         if (err && (err.status === 401 || err.status === 404)) {
+          this.loading = false;
           this.show_signin_error_card = true;
         }
       });

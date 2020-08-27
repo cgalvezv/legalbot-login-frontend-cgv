@@ -20,11 +20,11 @@ const routes: Routes = [
     component: SignUpComponent,
     pathMatch: 'full'
   },
-  // {
-  //   path: '',
-  //   redirectTo: 'sign_in',
-  //   pathMatch: 'full'
-  // },
+  {
+    path: '',
+    redirectTo: 'sign_in',
+    pathMatch: 'full'
+  },
 ];
 
 @NgModule({
