@@ -12,7 +12,7 @@
           <mat-label>Email</mat-label>
           <input matInput formControlName='email'>
           <mat-error *ngIf="signInForm.get('email').invalid">
-            Invalid email format
+            {{ validationMessages.email.error }}
           </mat-error>
         </mat-form-field>
         <mat-form-field fxFlex appearance="outline">
@@ -23,7 +23,7 @@
           </button>
         </mat-form-field>
         <mat-card *ngIf="show_signin_error_card" class="error-card" fxLayoutAlign="center center">
-          Invalid email or password, try again
+          {{ validationMessages.session.error }}
         </mat-card>
         <div class="signup-wrapper" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="20px">
           <p>

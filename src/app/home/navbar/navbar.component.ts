@@ -8,21 +8,26 @@ import { AuthService } from 'src/app/shared/auth/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  @Input() user: UserOutput;
+  @Input() user: UserOutput;// is the user logged
 
-  fullName: string = '';
-  loading: boolean = false
+  fullName: string = '';// To declare full name of logged user
+  loading: boolean = false// To hide/show loading bar
 
   constructor(
     private _authSrv: AuthService
   ) { }
 
   ngOnInit(): void {
+    // Implement full name creation
     if (!!this.user) {
       this.fullName = this.user.name + ' ' + this.user.lastname;
     }
   }
 
+  /**
+   * Method to logout the session
+   * @author cgalvezv
+   */
   logout() {
     this.loading = true;
     setTimeout(() => {

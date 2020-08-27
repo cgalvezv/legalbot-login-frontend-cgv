@@ -3,7 +3,6 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/shared/auth/auth.service';
 import { delay } from 'rxjs/internal/operators';
-import { UserOutput } from 'src/app/shared/models/user.model';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
@@ -11,10 +10,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './sign-up.component.html',
   styleUrls: ['./sign-up.component.scss']
 })
-export class SignUpComponent implements OnInit {
+export class SignUpComponent {
 
-  loading = false;
-  hide_pass = true;
+  loading = false; // To hide/show loading bar
+  hide_pass = true; // To hide/show password behavior
+  // Sign Up form declaration
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]), // Name validation
     lastname: new FormControl(''), // Lastname field
@@ -23,6 +23,7 @@ export class SignUpComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.maxLength(8) ,Validators.pattern(/[*$@!#%&()^~{}]+/)]), // Password validation
   });
 
+  // Validation messages into the view
   validationMessages = {
     global: {
       required: 'Required',
@@ -53,10 +54,10 @@ export class SignUpComponent implements OnInit {
     private _router: Router,
     private _snackBar: MatSnackBar
   ) { }
-
-  ngOnInit(): void {
-  }
-
+  /**
+   * Method to generate the sign up action
+   * @author cgalvezv
+   */
   submit() {
     this.loading = true;
     this._authSrv.signUp(this.signUpForm.value)
@@ -82,6 +83,11 @@ export class SignUpComponent implements OnInit {
       })
   }
 
+  /**
+   * Method to show a snack bar into the page
+   * @param message is the message into the snack bar
+   * @author cgalvezv
+   */
   private _openSnackBar(message: string) {
     this._snackBar.open(message, null, {
       duration: 2000,

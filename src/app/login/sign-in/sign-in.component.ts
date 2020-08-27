@@ -13,14 +13,24 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class SignInComponent implements OnInit {
 
+  loading = false; // To hide/show loading bar
   hide_pass = true; // To hide/show password behavior
   show_signin_error_card = false; // To hide/show sign in error
-  loading = false; // To hide/show loading bar
   // Sign In form declaration
   signInForm = new FormGroup({
     email: new FormControl('', Validators.email), // Email validation
     password: new FormControl(''), // Password validation
   });
+
+  // Validation messages into the view
+  validationMessages = {
+    email: {
+      error: 'Invalid email format'
+    },
+    session: {
+      error: 'Invalid email or password, try again'
+    }
+  }
 
   constructor(
     private _authSrv: AuthService,
@@ -29,10 +39,14 @@ export class SignInComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    // Clean the wrong login action message
     this.signInForm.valueChanges
       .subscribe(() => this.show_signin_error_card = false);
   }
-
+  /**
+   * Method to generate the sign in action
+   * @author cgalvezv
+   */
   submit() {
     this.loading = true;
     this._authSrv.signIn(this.signInForm.value)
@@ -63,6 +77,11 @@ export class SignInComponent implements OnInit {
       });
   }
 
+  /**
+   * Method to show a snack bar into the page
+   * @param message is the message into the snack bar
+   * @author cgalvezv
+   */
   private _openSnackBar(message: string) {
     this._snackBar.open(message, null, {
       duration: 2000,
