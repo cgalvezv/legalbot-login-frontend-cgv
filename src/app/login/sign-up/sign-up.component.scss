@@ -1,5 +1,8 @@
 .main {
     mat-card {
         width: 500px;
+        mat-form-field {
+            padding: 8px 0;
+        }
     }
 }

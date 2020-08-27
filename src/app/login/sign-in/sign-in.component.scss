@@ -1,16 +1,19 @@
 .main {
-    margin-top: -50px;
+    margin-top: -20px;
     img {
-        height: 150px;
-        width: auto;
+      height: 150px;
     }
     mat-card {
         width: 500px;
         mat-card-title, mat-card-subtitle {
             text-align: center;
         }
+        .error-card {
+          background-color: red;
+          color: white;
+        }
         .signup-wrapper {
-            margin-top: 30px;
+            margin-top: 10px;
         }
     }
 }

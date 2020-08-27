@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from '../shared/auth/auth.service';
+import { UserOutput, UserInput } from '../shared/models/user.model';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,13 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  constructor() { }
+  userLogged: UserInput = null //To save the recently logged user
+  constructor(
+    private _authSrv: AuthService
+  ) { }
 
   ngOnInit(): void {
+    this.userLogged = this._authSrv.getUserLogged();
   }
 
 }
