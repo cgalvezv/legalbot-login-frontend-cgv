@@ -9,8 +9,12 @@
         mat-card-title, mat-card-subtitle {
             text-align: center;
         }
+        .error-card {
+          background-color: red;
+          color: white;
+        }
         .signup-wrapper {
-            margin-top: 30px;
+            margin-top: 10px;
         }
     }
 }
