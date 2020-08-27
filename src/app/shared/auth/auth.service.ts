@@ -3,8 +3,9 @@ import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserToSignIn, UserInput, UserOutput } from '../models/user.model';
 import { SIGN_IN_ENDPOINT } from '../backend.constant';
-import { ACCESS_TOKEN_TITLE, REFRESH_TOKEN_TITLE } from './auth.constant';
+import { ACCESS_TOKEN_TITLE, REFRESH_TOKEN_TITLE, USER_OBJECT_TITLE } from './auth.constant';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { JsonPipe } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -23,10 +24,12 @@ export class AuthService {
   }
 
   getUserLogged(): UserOutput {
-    return this.userLogged$.getValue()
+    return this.userLogged$.getValue() || JSON.parse(atob(localStorage.getItem(USER_OBJECT_TITLE)));
   }
 
   setUserLogged(user: UserOutput) {
+    const user_serialized = btoa(JSON.stringify(user));
+    localStorage.setItem(USER_OBJECT_TITLE, user_serialized);
     this.userLogged$.next(user)
   }
 
@@ -38,8 +41,9 @@ export class AuthService {
     return this._http.post<UserOutput>(SIGN_IN_ENDPOINT, user);
   }
 
-  setAuthToken(user_id: string, accessToken: string, refresToken: string) {
-    localStorage.setItem(ACCESS_TOKEN_TITLE.replace('{user_id}', user_id), accessToken);
-    localStorage.setItem(REFRESH_TOKEN_TITLE.replace('{user_id}', user_id), refresToken);
+  setAuthToken(user: UserOutput) {
+    const user_serialized = btoa(JSON.stringify(user));
+    localStorage.setItem(ACCESS_TOKEN_TITLE.replace('{user_id}', user_serialized), user.accessToken);
+    localStorage.setItem(REFRESH_TOKEN_TITLE.replace('{user_id}', user_serialized), user.refreshToken);
   }
 }

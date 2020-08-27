@@ -1,0 +1,17 @@
+<mat-toolbar fxLayout="row" fxLayoutAlign="space-between center" color="primary">
+  <span>Login Challenge - Legalbot</span>
+  <div>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>account_box</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>
+        <mat-icon>exit_to_app</mat-icon>
+        <span>Logout</span>
+      </button>
+    </mat-menu>
+    <span class="user-full-name">
+      {{ fullName | uppercase}}
+    </span>
+  </div>
+</mat-toolbar>

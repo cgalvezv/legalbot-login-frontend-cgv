@@ -6,7 +6,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatMenuModule } from '@angular/material/menu'
 
 @NgModule({
   declarations: [],
@@ -17,7 +18,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatMenuModule
   ],
   exports: [
     MatCardModule,
@@ -26,7 +29,9 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
     MatIconModule,
     MatInputModule,
     MatSelectModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatToolbarModule,
+    MatMenuModule
   ]
 })
 export class MaterialModule { }

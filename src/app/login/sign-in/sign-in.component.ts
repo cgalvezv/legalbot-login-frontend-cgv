@@ -40,7 +40,7 @@ export class SignInComponent implements OnInit {
       .subscribe((user: UserOutput) => {
         if (user) {
           this.loading = false;
-          this._authSrv.setAuthToken(btoa(JSON.stringify(user)), user.accessToken, user.refreshToken);
+          this._authSrv.setAuthToken(user);
           this._authSrv.setUserLogged(user);
           this._router.navigate(['home'])
         }

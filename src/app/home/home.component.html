@@ -1,1 +1,15 @@
-<p>home works!</p>
+<app-navbar [user]="userLogged"></app-navbar>
+<div fxLayout="row" fxFlexFill fxLayoutAlign="center center">
+  <mat-card fxLayout="column" fxLayoutAlign="center center">
+    <mat-card-header>
+      <mat-card-title>Welcome to Login Challenge Home Page</mat-card-title>
+    </mat-card-header>
+    <img mat-card-image src="assets/img/tick-logo.png">
+    <mat-card-content fxLayout="column">
+      <h3>
+        You have just successfully registered and logged in to this site with the email <b>{{ userLogged.email }}</b>
+        <br>To log out, you must press the button <mat-icon class="aligned-with-text">exit_to_app</mat-icon> on the navbar, and press the 'Logout' button
+      </h3>
+    </mat-card-content>
+  </mat-card>
+</div>

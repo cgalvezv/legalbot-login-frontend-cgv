@@ -1,0 +1,7 @@
+mat-toolbar {
+  position: fixed;
+  position: -webkit-sticky; /* For macOS/iOS Safari */
+  .user-full-name{
+    font-size: 13px;
+  }
+}
