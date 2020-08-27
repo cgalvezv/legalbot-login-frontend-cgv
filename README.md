@@ -7,6 +7,7 @@
 This aplication contains a simple Sign in and Sign up page.
 
 **Mandatory Requirements**
+
 To execute the front-end is necessary to have running the back-end of this same app, in the port `3030`.
 
 **Running instructions**
