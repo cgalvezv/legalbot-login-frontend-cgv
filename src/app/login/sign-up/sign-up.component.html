@@ -8,12 +8,12 @@
           <mat-form-field fxFlex appearance="outline">
               <mat-label>Name</mat-label>
               <input matInput formControlName='name' required>
-              <mat-hint>At least 3 characters long</mat-hint>
+              <mat-hint>{{ validationMessages.name.hint }}</mat-hint>
               <mat-error *ngIf="signUpForm.get('name').hasError('required')">
-                Required
+                {{ validationMessages.global.required }}
               </mat-error>
               <mat-error *ngIf="signUpForm.get('name').hasError('minlength')">
-                Wrong password length (Min length: 3)
+                {{ validationMessages.name.errors.minLength }}
               </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
@@ -29,18 +29,18 @@
               <mat-option value="Other">Other</mat-option>
             </mat-select>
             <mat-error *ngIf="signUpForm.get('gender').hasError('required')">
-              Required
+              {{ validationMessages.global.required }}
             </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
               <mat-label>Email</mat-label>
               <input matInput formControlName='email' required>
-              <mat-hint>Should be a valid email</mat-hint>
+              <mat-hint>{{ validationMessages.email.hint }}</mat-hint>
               <mat-error *ngIf="signUpForm.get('email').hasError('email')">
-                Invalid format
+                {{ validationMessages.email.errors.email }}
               </mat-error>
               <mat-error *ngIf="signUpForm.get('email').hasError('required')">
-                Required
+                {{ validationMessages.global.required }}
               </mat-error>
           </mat-form-field>
           <mat-form-field fxFlex appearance="outline">
@@ -49,15 +49,15 @@
               <button mat-icon-button matSuffix (click)="hide_pass = !hide_pass" [attr.aria-pressed]="hide_pass">
                 <mat-icon>{{hide_pass ? 'visibility_off' : 'visibility'}}</mat-icon>
               </button>
-              <mat-hint>Should contain at least one special character (ie: *$@!#%&^~) and be at least 8 characters long</mat-hint>
+              <mat-hint>{{ validationMessages.password.hint }}</mat-hint>
               <mat-error *ngIf="signUpForm.get('password').hasError('required')">
-                Required
+                {{ validationMessages.global.required }}
               </mat-error>
               <mat-error *ngIf="signUpForm.get('password').hasError('pattern')">
-                Invalid format, password must contain least one special character (*$@!#%&^~)
+                {{ validationMessages.password.errors.pattern }}
               </mat-error>
               <mat-error *ngIf="signUpForm.get('password').hasError('maxlength')">
-                Wrong password length (Max length: 8)
+                {{ validationMessages.password.errors.maxLength }}
               </mat-error>
           </mat-form-field>
         </form>
