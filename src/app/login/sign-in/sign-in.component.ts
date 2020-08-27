@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { delay } from 'rxjs/internal/operators';
 import { AuthService } from '../../shared/auth/auth.service';
 import { UserOutput } from 'src/app/shared/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,7 +24,8 @@ export class SignInComponent implements OnInit {
 
   constructor(
     private _authSrv: AuthService,
-    private _router: Router
+    private _router: Router,
+    private _snackBar: MatSnackBar
   ) { }
 
   ngOnInit(): void {
@@ -37,20 +39,34 @@ export class SignInComponent implements OnInit {
       .pipe(
         delay(1000)
       )
-      .subscribe((user: UserOutput) => {
-        if (user) {
+      .subscribe((response: any) => {
+        if (response) {
           this.loading = false;
-          this._authSrv.setAuthToken(user);
-          this._authSrv.setUserLogged(user);
-          this._router.navigate(['/home'])
+          if (response.msg) {
+            this._openSnackBar(response.msg);
+          }
+          if (response.user) {
+            this._authSrv.setAuthToken(response.user);
+            this._authSrv.setUserLogged(response.user);
+            this._router.navigate(['/home'])
+          }
         }
       },
       err => {
+        this.loading = false;
         if (err && (err.status === 401 || err.status === 404)) {
-          this.loading = false;
           this.show_signin_error_card = true;
+        } else {
+          const msg = 'There are currently connection errors, please wait a moment or contact the author of the app';
+          this._openSnackBar(msg);
         }
       });
+  }
+
+  private _openSnackBar(message: string) {
+    this._snackBar.open(message, null, {
+      duration: 2000,
+    });
   }
 
 }

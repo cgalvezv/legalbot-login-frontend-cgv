@@ -7,7 +7,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatMenuModule } from '@angular/material/menu'
+import { MatMenuModule } from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   declarations: [],
@@ -20,7 +21,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatSelectModule,
     MatProgressBarModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ],
   exports: [
     MatCardModule,
@@ -31,7 +33,8 @@ import { MatMenuModule } from '@angular/material/menu'
     MatSelectModule,
     MatProgressBarModule,
     MatToolbarModule,
-    MatMenuModule
+    MatMenuModule,
+    MatSnackBarModule
   ]
 })
 export class MaterialModule { }

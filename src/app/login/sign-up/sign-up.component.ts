@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/shared/auth/auth.service';
+import { delay } from 'rxjs/internal/operators';
+import { UserOutput } from 'src/app/shared/models/user.model';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-sign-up',
@@ -8,6 +13,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 })
 export class SignUpComponent implements OnInit {
 
+  loading = false;
   hide_pass = true;
   signUpForm = new FormGroup({
     name: new FormControl('', [Validators.required, Validators.minLength(3)]), // Name validation
@@ -42,9 +48,44 @@ export class SignUpComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(
+    private _authSrv: AuthService,
+    private _router: Router,
+    private _snackBar: MatSnackBar
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  submit() {
+    this.loading = true;
+    this._authSrv.signUp(this.signUpForm.value)
+      .pipe(
+        delay(1000)
+      )
+      .subscribe((response: any) => {
+        if (response) {
+          this.loading = false;
+          if (response.msg) {
+            this._openSnackBar(response.msg);
+          }
+          if (response.user) {
+            this._authSrv.setAuthToken(response.user);
+            this._authSrv.setUserLogged(response.user);
+            this._router.navigate(['/home'])
+          }
+        }
+      },
+      err => {
+        this.loading = false;
+        this._openSnackBar(err.error.msg);
+      })
+  }
+
+  private _openSnackBar(message: string) {
+    this._snackBar.open(message, null, {
+      duration: 2000,
+    });
   }
 
 }

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { HttpClient } from '@angular/common/http';
 import { UserToSignIn, UserInput, UserOutput } from '../models/user.model';
-import { SIGN_IN_ENDPOINT } from '../backend.constant';
+import { SIGN_IN_ENDPOINT, SIGN_UP_ENDPOINT } from '../backend.constant';
 import { ACCESS_TOKEN_TITLE, REFRESH_TOKEN_TITLE, USER_OBJECT_TITLE } from './auth.constant';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 import { JsonPipe } from '@angular/common';
@@ -41,7 +41,7 @@ export class AuthService {
   }
 
   signUp(user: UserInput): Observable<UserOutput>  {
-    return this._http.post<UserOutput>(SIGN_IN_ENDPOINT, user);
+    return this._http.post<UserOutput>(SIGN_UP_ENDPOINT, user);
   }
 
   logout(user: UserOutput) {

@@ -11,6 +11,7 @@ export class NavbarComponent implements OnInit {
   @Input() user: UserOutput;
 
   fullName: string = '';
+  loading: boolean = false
 
   constructor(
     private _authSrv: AuthService
@@ -23,6 +24,9 @@ export class NavbarComponent implements OnInit {
   }
 
   logout() {
-    this._authSrv.logout(this.user);
+    this.loading = true;
+    setTimeout(() => {
+      this._authSrv.logout(this.user);
+    }, 2000);
   }
 }
