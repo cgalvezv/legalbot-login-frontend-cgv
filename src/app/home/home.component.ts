@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    console.log('this._authSrv.getUserLogged()', this._authSrv.getUserLogged());
     this.userLogged = this._authSrv.getUserLogged();
   }
 

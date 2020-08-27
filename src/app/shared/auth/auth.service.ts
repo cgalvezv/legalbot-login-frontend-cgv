@@ -12,7 +12,7 @@ import { JsonPipe } from '@angular/common';
 })
 export class AuthService {
 
-  userLogged$ = new BehaviorSubject<UserOutput>(null);
+  private userLogged$ = new BehaviorSubject<UserOutput>(null);
 
   constructor(
     private _http: HttpClient,
@@ -24,7 +24,10 @@ export class AuthService {
   }
 
   getUserLogged(): UserOutput {
-    return this.userLogged$.getValue() || JSON.parse(atob(localStorage.getItem(USER_OBJECT_TITLE)));
+    if (!!localStorage.getItem(USER_OBJECT_TITLE)) {
+      return JSON.parse(atob(localStorage.getItem(USER_OBJECT_TITLE)));
+    }
+    return this.userLogged$.getValue();
   }
 
   setUserLogged(user: UserOutput) {
@@ -41,9 +44,31 @@ export class AuthService {
     return this._http.post<UserOutput>(SIGN_IN_ENDPOINT, user);
   }
 
+  logout(user: UserOutput) {
+    const user_serialized = btoa(JSON.stringify(user));
+    this._removeAllTokens(user_serialized);
+    this._router.navigate(['/sign_in'])
+  }
+
+  isLoggedIn(user: UserOutput) {
+    const user_serialized = btoa(JSON.stringify(user));
+    return !!localStorage.getItem(USER_OBJECT_TITLE) &&
+          !!localStorage.getItem(ACCESS_TOKEN_TITLE.replace('{user_id}', user_serialized)) &&
+          !!localStorage.getItem(REFRESH_TOKEN_TITLE.replace('{user_id}', user_serialized));
+  }
+
   setAuthToken(user: UserOutput) {
     const user_serialized = btoa(JSON.stringify(user));
+    if (this.isLoggedIn(user)) {
+      this._removeAllTokens(user_serialized)
+    }
     localStorage.setItem(ACCESS_TOKEN_TITLE.replace('{user_id}', user_serialized), user.accessToken);
     localStorage.setItem(REFRESH_TOKEN_TITLE.replace('{user_id}', user_serialized), user.refreshToken);
+  }
+
+  private _removeAllTokens(user_serialized: string) {
+    localStorage.removeItem(USER_OBJECT_TITLE);
+    localStorage.removeItem(ACCESS_TOKEN_TITLE.replace('{user_id}', user_serialized));
+    localStorage.removeItem(REFRESH_TOKEN_TITLE.replace('{user_id}', user_serialized));
   }
 }

@@ -3,12 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 import { SignInComponent } from './login/sign-in/sign-in.component';
 import { SignUpComponent } from './login/sign-up/sign-up.component';
 import { HomeComponent } from './home/home.component';
+import { AuthGuard } from './shared/auth/auth.guard'
 
 const routes: Routes = [
   {
     path: 'home',
     component: HomeComponent,
-    pathMatch: 'full'
+    canActivate: [AuthGuard]
   },
   {
     path: 'sign_in',
@@ -22,7 +23,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'sign_in',
+    redirectTo: 'home',
     pathMatch: 'full'
   },
 ];

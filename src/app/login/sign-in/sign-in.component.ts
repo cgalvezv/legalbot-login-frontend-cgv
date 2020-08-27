@@ -42,7 +42,7 @@ export class SignInComponent implements OnInit {
           this.loading = false;
           this._authSrv.setAuthToken(user);
           this._authSrv.setUserLogged(user);
-          this._router.navigate(['home'])
+          this._router.navigate(['/home'])
         }
       },
       err => {
